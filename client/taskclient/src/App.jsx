@@ -1,23 +1,37 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import RegisterPage from "./pages/registerPage"
 import LoginPage from "./pages/loginPage"
+import TaskFormPage from "./pages/TaskFormPage.jsx"
+import TasksPage from "./pages/TasksPage.jsx"
+import HomePage from "./pages/HomePage.jsx"
+import ProfilePage from "./pages/ProfilePage.jsx"
+
+import ProtectedRoute from "./ProtectedRoute.jsx"
 import { AuthProvider } from "./context/authContext"
+import { TaskProvider } from "./context/TasksContext.jsx"
+import Navbar from "./components/Navbar.jsx"
 
 function App() {
   return (
-  <AuthProvider>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<h1>Home Page</h1>}/>
-      <Route path="/login" element={<LoginPage/>}/>
-      <Route path="/register" element={<RegisterPage/>}/>
-      <Route path="/tasks" element={<h1>tasks</h1>}/>
-      <Route path="/add-task" element={<h1>register task</h1>}/>
-      <Route path="/tasks/:id" element={<h1>update task</h1>}/>
-      <Route path="/profile" element={<h1>profile</h1>}/>
-    </Routes>
-  </BrowserRouter>
-  </AuthProvider>
+    <AuthProvider>
+      <TaskProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/tasks" element={<TasksPage />} />
+              <Route path="/new" element={<TaskFormPage />} />
+              <Route path="/tasks/:id" element={<TaskFormPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TaskProvider>
+    </AuthProvider>
   )
 }
 
