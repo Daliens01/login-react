@@ -35,7 +35,8 @@ const LoginPage = () => {
                 <input type="password" {...register("password", { required: true })}
                     className={inputClassName} placeholder="password" />
                 {errors.password && <p className="text-red-500">password is required</p>}
-                <button type="submit">Login</button>
+                <button type="submit"
+                 className="bg-indigo-500 px-3 py-2 rounded-md">Login</button>
             </form>
             <p className="flex gap-x-2 justify-between">Don't have an account? <Link to="/register" className="text-sky-500">Sign up</Link> </p>
             </div>
